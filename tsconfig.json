@@ -5,6 +5,7 @@
     "allowJs": false,
     "skipLibCheck": true,                   // doesnt type check .d.ts files (DISABLE WHEN https://github.com/vitejs/vite/issues/11552 IS FIXED)
     "esModuleInterop": true,                // also enables allowSyntheticDefaultImports (allows for importing default exports)
+    "allowSyntheticDefaultImports": true,   // allows default imports from modules without default export
 
     "forceConsistentCasingInFileNames": true,
     "module": "NodeNext",

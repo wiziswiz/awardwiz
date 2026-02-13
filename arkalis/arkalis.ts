@@ -112,7 +112,7 @@ type UnionToIntersection<U> = (U extends any ? (k: U)=>void : never) extends ((k
 export type ArkalisCore = {
   client: CDP.Client,
   log: (...args: any[]) => void,
-  warn: (...args: any[]) => never[],
+  warn: (...args: any[]) => any[],
   wait: (ms: number) => Promise<unknown>,
   pause: () => Promise<unknown>,
   scraperMeta: Required<ScraperMetadata>,
