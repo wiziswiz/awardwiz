@@ -24,9 +24,8 @@ import { runScraper as airfranceScraper, meta as airfranceMeta } from './awardwi
 import { runScraper as britishairwaysScraper, meta as britishairwaysMeta } from './awardwiz-scrapers/scrapers/britishairways.js'
 import { runScraper as qatarairwaysScraper, meta as qatarairwaysMeta } from './awardwiz-scrapers/scrapers/qatarairways.js'
 import { runScraper as emiratesScraper, meta as emiratesMeta } from './awardwiz-scrapers/scrapers/emirates.js'
-// TODO: Add other scrapers as they're implemented
-// import { runScraper as aaScraper, meta as aaMeta } from './awardwiz-scrapers/scrapers/aa.js'
-// import { runScraper as deltaScraper, meta as deltaMeta } from './awardwiz-scrapers/scrapers/delta.js'
+import { runScraper as aaScraper, meta as aaMeta } from './awardwiz-scrapers/scrapers/aa.js'
+import { runScraper as deltaScraper, meta as deltaMeta } from './awardwiz-scrapers/scrapers/delta.js'
 
 interface ScraperModule {
   runScraper: (arkalis: any, query: AwardWizQuery) => Promise<FlightWithFares[]>
@@ -65,7 +64,8 @@ const AVAILABLE_SCRAPERS: Record<string, ScraperModule> = {
   'britishairways': { runScraper: britishairwaysScraper, meta: britishairwaysMeta },
   'qatarairways': { runScraper: qatarairwaysScraper, meta: qatarairwaysMeta },
   'emirates': { runScraper: emiratesScraper, meta: emiratesMeta },
-  // TODO: Add more as implemented
+  'aa': { runScraper: aaScraper, meta: aaMeta },
+  'delta': { runScraper: deltaScraper, meta: deltaMeta },
 }
 
 program
@@ -82,7 +82,7 @@ program
   .option('-p, --programs <programs>', 'Comma-separated list of programs to search (default: all)')
   .option('-b, --balances', 'Include user balances and transfer calculations')
   .option('-o, --output <file>', 'Output file for results (default: results.json)')
-  .option('--timeout <seconds>', 'Timeout per scraper in seconds', '45')
+  .option('--timeout <seconds>', 'Timeout per scraper in seconds', '90')
   .option('--no-proxy', 'Disable proxy usage')
   .option('--verbose', 'Show detailed request logs')
   .action(async (options) => {
@@ -161,7 +161,7 @@ async function runSearch(options: any) {
           return await scraper.runScraper(arkalis, query)
         },
         {
-          maxAttempts: 1,
+          maxAttempts: 3,
           useProxy: !options.noProxy,
           showRequests: options.verbose,
           browserDebug: false

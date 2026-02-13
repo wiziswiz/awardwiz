@@ -10,7 +10,7 @@ export const meta: ScraperMetadata = {
 export const runScraper: AwardWizScraper = async (arkalis, query) => {
   const url = "https://www.aa.com/booking/find-flights"
   arkalis.goto(url)
-  await arkalis.waitFor({ "success": { type: "url", url, onlyStatusCode: 200, othersThrow: true }})
+  await arkalis.waitFor({ "success": { type: "url", url: "https://www.aa.com/booking/*/find-flights*", onlyStatusCode: 200, othersThrow: true }})
 
   arkalis.log("fetching itinerary")
   const fetchRequest = {
@@ -41,10 +41,12 @@ export const runScraper: AwardWizScraper = async (arkalis, query) => {
     })
   }
 
-  const cmd = `fetch("https://www.aa.com/booking/api/search/itinerary", ${JSON.stringify(fetchRequest)});`
-  void arkalis.evaluate(cmd)
-  const xhrResponse = await arkalis.waitFor({ "search": { type: "url", url: "https://www.aa.com/booking/api/search/itinerary" }})
-  const json = JSON.parse(xhrResponse.response!.body) as AAResponse
+  // Evaluate fetch directly and return response text — avoids CDP Fetch/Network capture conflicts
+  const cmd = `fetch("https://www.aa.com/booking/api/search/itinerary", ${JSON.stringify(fetchRequest)}).then(r => r.text())`
+  const responseText = await arkalis.evaluate<string>(cmd)
+  if (!responseText)
+    throw new Error("Empty response from AA search API")
+  const json = JSON.parse(responseText) as AAResponse
 
   // aa can return errors in two ways
   if ((json.errorNumber ?? 0) > 0) {
@@ -110,10 +112,19 @@ const standardizeResults = (slices: Slice[], query: AwardWizQuery): FlightWithFa
         }, [])
     }
 
-    if (slice.segments.length > 1)
+    // Include connecting flights — needed for gateway scanner and international routes
+    // For connecting flights, use the first segment's info but keep the overall slice times
+    if (segment.origin.code !== query.origin || slice.segments[slice.segments.length - 1]!.destination.code !== query.destination)
       return
-    if (segment.origin.code !== query.origin || segment.destination.code !== query.destination)
-      return
+    
+    // Override departure/arrival for full itinerary if connecting
+    if (slice.segments.length > 1) {
+      const lastSeg = slice.segments[slice.segments.length - 1]!
+      result.arrivalDateTime = lastSeg.arrivalDateTime.replace(" ", "").replace("T", " ").slice(0, 16)
+      result.destination = lastSeg.destination.code
+      result.flightNo = slice.segments.map(s => `${s.flight.carrierCode} ${s.flight.flightNumber}`).join(" / ")
+      result.aircraft = slice.segments.map(s => s.legs[0]?.aircraft.name).join(" / ")
+    }
 
     return result
   }).filter((result): result is FlightWithFares => !!result)
