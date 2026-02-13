@@ -1,0 +1,483 @@
+{
+  "timestamp": "2026-02-13T22:56:35.869Z",
+  "balances": [
+    {
+      "programId": "3251781",
+      "programName": "Marriott Bonvoy",
+      "currency": "points",
+      "balance": 984722,
+      "expirationDate": "2026-05-03T02:26:32+00:00",
+      "lastUpdated": "2025-04-26T02:26:32+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "7129146",
+      "programName": "Air France (Flying Blue)",
+      "currency": "miles",
+      "balance": 851165,
+      "lastUpdated": "2024-03-05T16:13:38+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3965091",
+      "programName": "Hilton (Honors)",
+      "currency": "points",
+      "balance": 561287,
+      "lastUpdated": "2025-04-17T00:42:56+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543895",
+      "programName": "Air Canada (Aeroplan)",
+      "currency": "miles",
+      "balance": 475663,
+      "lastUpdated": "2023-10-26T17:54:51+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3535949",
+      "programName": "Marriott Bonvoy",
+      "currency": "points",
+      "balance": 407538,
+      "expirationDate": "2027-03-29T15:55:00+00:00",
+      "lastUpdated": "2025-04-11T15:55:00+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "7129054",
+      "programName": "Chase (Ultimate Rewards)",
+      "currency": "miles",
+      "balance": 387429,
+      "lastUpdated": "2023-10-26T18:29:35+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3055028",
+      "programName": "Chase (Ultimate Rewards)",
+      "currency": "miles",
+      "balance": 361315,
+      "lastUpdated": "2018-03-03T23:16:08+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3535943",
+      "programName": "Chase (Ultimate Rewards)",
+      "currency": "miles",
+      "balance": 348211,
+      "lastUpdated": "2018-08-26T05:58:32+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129049",
+      "programName": "Chase (Ultimate Rewards)",
+      "currency": "miles",
+      "balance": 218340,
+      "lastUpdated": "2023-10-26T18:26:13+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3055019",
+      "programName": "Hilton (Honors)",
+      "currency": "points",
+      "balance": 172955,
+      "expirationDate": "2027-05-02T20:41:17+00:00",
+      "lastUpdated": "2025-05-02T20:41:17+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543891",
+      "programName": "Delta Air Lines (SkyMiles)",
+      "currency": "miles",
+      "balance": 155954,
+      "lastUpdated": "2018-07-17T23:34:30+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3055041",
+      "programName": "Southwest Airlines (Rapid Rewards)",
+      "currency": "miles",
+      "balance": 144000,
+      "lastUpdated": "2016-06-02T17:45:31+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3724335",
+      "programName": "Delta Air Lines (SkyMiles)",
+      "currency": "miles",
+      "balance": 137476,
+      "lastUpdated": "2018-10-12T13:22:52+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543906",
+      "programName": "British Airways (Club)",
+      "currency": "miles",
+      "balance": 71449,
+      "expirationDate": "2026-07-23T01:49:10+00:00",
+      "lastUpdated": "2024-04-19T22:23:04+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3543899",
+      "programName": "United Airlines (Mileage Plus)",
+      "currency": "miles",
+      "balance": 70000,
+      "lastUpdated": "2017-02-14T07:21:33+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129177",
+      "programName": "Virgin Atlantic (Flying Club)",
+      "currency": "miles",
+      "balance": 60728,
+      "lastUpdated": "2025-03-25T09:37:12+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3724299",
+      "programName": "Bank Of America",
+      "currency": "miles",
+      "balance": 59449,
+      "lastUpdated": "2020-11-27T14:58:22+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129063",
+      "programName": "Bilt Rewards",
+      "currency": "miles",
+      "balance": 59390,
+      "lastUpdated": "2025-03-11T21:48:55+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543893",
+      "programName": "Alaska Airlines (Atmos Rewards)",
+      "currency": "miles",
+      "balance": 47660,
+      "lastUpdated": "2025-12-20T04:17:48+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543896",
+      "programName": "JetBlue Airways (TrueBlue)",
+      "currency": "miles",
+      "balance": 44344,
+      "lastUpdated": "2023-03-11T12:01:14+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129168",
+      "programName": "PenFed (Rewards)",
+      "currency": "miles",
+      "balance": 41094,
+      "lastUpdated": "2025-06-15T23:57:35+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3965120",
+      "programName": "Alaska Airlines (Atmos Rewards)",
+      "currency": "miles",
+      "balance": 30025,
+      "lastUpdated": "2025-12-14T09:47:02+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3724305",
+      "programName": "Hyatt (World of Hyatt)",
+      "currency": "points",
+      "balance": 22560,
+      "lastUpdated": "2023-10-03T09:54:38+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3058926",
+      "programName": "Hyatt (World of Hyatt)",
+      "currency": "points",
+      "balance": 22388,
+      "lastUpdated": "2023-11-09T05:20:50+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "7129160",
+      "programName": "HSBC Rewards",
+      "currency": "miles",
+      "balance": 11371,
+      "lastUpdated": "2025-02-02T10:04:41+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3965110",
+      "programName": "Alaska Airlines (Atmos Rewards)",
+      "currency": "miles",
+      "balance": 10000,
+      "lastUpdated": "2020-01-11T08:55:04+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3724331",
+      "programName": "JetBlue Airways (TrueBlue)",
+      "currency": "miles",
+      "balance": 4824,
+      "lastUpdated": "2024-11-27T07:27:37+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3058940",
+      "programName": "Hertz (Gold Plus Rewards)",
+      "currency": "miles",
+      "balance": 2452,
+      "lastUpdated": "2025-01-31T22:48:38+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3543913",
+      "programName": "IHG Hotels &amp; Resorts (One Rewards)",
+      "currency": "points",
+      "balance": 1220,
+      "lastUpdated": "2025-08-08T13:32:44+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129164",
+      "programName": "Bilt Rewards",
+      "currency": "miles",
+      "balance": 901,
+      "lastUpdated": "2025-03-10T06:02:46+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "7129017",
+      "programName": "Qantas (Frequent Flyer)",
+      "currency": "miles",
+      "balance": 711,
+      "expirationDate": "2027-04-30T18:53:54+00:00",
+      "lastUpdated": "2026-02-09T18:53:54+00:00",
+      "isActive": true
+    },
+    {
+      "programId": "3543900",
+      "programName": "Singapore Airlines (KrisFlyer)",
+      "currency": "miles",
+      "balance": 371,
+      "lastUpdated": "2020-11-10T23:03:55+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "3724334",
+      "programName": "Southwest Airlines (Rapid Rewards)",
+      "currency": "miles",
+      "balance": 250,
+      "lastUpdated": "2017-06-04T22:57:02+00:00",
+      "isActive": false
+    },
+    {
+      "programId": "7129123",
+      "programName": "Hotels.com",
+      "currency": "points",
+      "balance": 89.61,
+      "lastUpdated": "2025-03-26T03:42:19+00:00",
+      "isActive": false
+    }
+  ],
+  "transferCalculations": [
+    {
+      "scraperName": "unknown",
+      "programName": "unknown",
+      "directBalance": 3724521.61,
+      "transferableBalance": 3724521.61,
+      "transferOptions": []
+    },
+    {
+      "scraperName": "air-france",
+      "programName": "Air France Flying Blue",
+      "directBalance": 851165,
+      "transferableBalance": 2226751,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "air-france",
+          "availablePoints": 1315295,
+          "transferRatio": 1,
+          "resultingMiles": 1315295,
+          "transferTime": "instant"
+        },
+        {
+          "fromProgram": "bilt",
+          "toProgram": "air-france",
+          "availablePoints": 60291,
+          "transferRatio": 1,
+          "resultingMiles": 60291,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "southwest",
+      "programName": "Southwest Rapid Rewards",
+      "directBalance": 144250,
+      "transferableBalance": 1459545,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "southwest",
+          "availablePoints": 1315295,
+          "transferRatio": 1,
+          "resultingMiles": 1315295,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "united",
+      "programName": "United MileagePlus",
+      "directBalance": 70000,
+      "transferableBalance": 1445586,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "united",
+          "availablePoints": 1315295,
+          "transferRatio": 1,
+          "resultingMiles": 1315295,
+          "transferTime": "instant"
+        },
+        {
+          "fromProgram": "bilt",
+          "toProgram": "united",
+          "availablePoints": 60291,
+          "transferRatio": 1,
+          "resultingMiles": 60291,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "british-airways",
+      "programName": "British Airways Executive Club",
+      "directBalance": 71449,
+      "transferableBalance": 1386744,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "british-airways",
+          "availablePoints": 1315295,
+          "transferRatio": 1,
+          "resultingMiles": 1315295,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "singapore",
+      "programName": "singapore",
+      "directBalance": 0,
+      "transferableBalance": 1315295,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "singapore",
+          "availablePoints": 1315295,
+          "transferRatio": 1,
+          "resultingMiles": 1315295,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "aeroplan",
+      "programName": "Air Canada Aeroplan",
+      "directBalance": 475663,
+      "transferableBalance": 475663,
+      "transferOptions": []
+    },
+    {
+      "scraperName": "delta",
+      "programName": "Delta SkyMiles",
+      "directBalance": 293430,
+      "transferableBalance": 293430,
+      "transferOptions": []
+    },
+    {
+      "scraperName": "alaska",
+      "programName": "Alaska Mileage Plan",
+      "directBalance": 87685,
+      "transferableBalance": 147976,
+      "transferOptions": [
+        {
+          "fromProgram": "bilt",
+          "toProgram": "alaska",
+          "availablePoints": 60291,
+          "transferRatio": 1,
+          "resultingMiles": 60291,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "emirates",
+      "programName": "Emirates Skywards",
+      "directBalance": 0,
+      "transferableBalance": 60291,
+      "transferOptions": [
+        {
+          "fromProgram": "bilt",
+          "toProgram": "emirates",
+          "availablePoints": 60291,
+          "transferRatio": 1,
+          "resultingMiles": 60291,
+          "transferTime": "1-2 days"
+        }
+      ]
+    },
+    {
+      "scraperName": "aa",
+      "programName": "American AAdvantage",
+      "directBalance": 0,
+      "transferableBalance": 60291,
+      "transferOptions": [
+        {
+          "fromProgram": "bilt",
+          "toProgram": "aa",
+          "availablePoints": 60291,
+          "transferRatio": 1,
+          "resultingMiles": 60291,
+          "transferTime": "instant"
+        }
+      ]
+    },
+    {
+      "scraperName": "jetblue",
+      "programName": "JetBlue TrueBlue",
+      "directBalance": 49168,
+      "transferableBalance": 49168,
+      "transferOptions": []
+    }
+  ],
+  "summary": {
+    "totalDirectMiles": 5767331.609999999,
+    "totalTransferableMiles": 12645261.61,
+    "programCount": 12,
+    "topPrograms": [
+      {
+        "name": "unknown",
+        "balance": 3724521.61
+      },
+      {
+        "name": "Air France Flying Blue",
+        "balance": 2226751
+      },
+      {
+        "name": "Southwest Rapid Rewards",
+        "balance": 1459545
+      },
+      {
+        "name": "United MileagePlus",
+        "balance": 1445586
+      },
+      {
+        "name": "British Airways Executive Club",
+        "balance": 1386744
+      }
+    ]
+  }
+}

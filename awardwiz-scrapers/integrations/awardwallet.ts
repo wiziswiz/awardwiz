@@ -86,10 +86,15 @@ export async function loadAwardWalletCredentials(): Promise<AwardWalletCredentia
   
   try {
     const credentialsData = await fs.readFile(credentialsPath, 'utf-8')
-    const credentials = JSON.parse(credentialsData) as AwardWalletCredentials
+    const raw = JSON.parse(credentialsData)
+    // Support both camelCase and snake_case keys
+    const credentials: AwardWalletCredentials = {
+      apiKey: raw.apiKey || raw.api_key,
+      userId: raw.userId || raw.user_id,
+    }
     
     if (!credentials.apiKey || !credentials.userId) {
-      throw new Error('AwardWallet credentials must include apiKey and userId')
+      throw new Error('AwardWallet credentials must include apiKey/api_key and userId/user_id')
     }
     
     return credentials
@@ -131,18 +136,19 @@ export async function fetchAwardWalletBalances(credentials?: AwardWalletCredenti
     // Transform the response to our standardized format
     const balances: AwardWalletBalance[] = []
     
-    // AwardWallet API structure may vary - this is based on typical structure
+    // AwardWallet API returns accounts with balanceRaw (number) and balance (formatted string)
     if (data.accounts && Array.isArray(data.accounts)) {
       for (const account of data.accounts) {
-        if (account.balance && account.balance > 0) {
+        const rawBalance = account.balanceRaw ?? (typeof account.balance === 'number' ? account.balance : parseInt(String(account.balance).replace(/,/g, ''), 10))
+        if (rawBalance && rawBalance > 0) {
           balances.push({
-            programId: account.id || account.programId || '',
-            programName: account.name || account.programName || '',
-            currency: account.currency || 'miles',
-            balance: account.balance,
+            programId: String(account.accountId || account.id || ''),
+            programName: account.displayName || account.name || '',
+            currency: account.kind === 'Hotels' ? 'points' : 'miles',
+            balance: rawBalance,
             expirationDate: account.expirationDate,
-            lastUpdated: account.lastUpdated || new Date().toISOString(),
-            isActive: account.isActive !== false
+            lastUpdated: account.lastRetrieveDate || new Date().toISOString(),
+            isActive: account.errorCode === 1
           })
         }
       }
