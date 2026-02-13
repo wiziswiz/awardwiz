@@ -1,0 +1,22 @@
+{
+  "query": {
+    "origin": "LAX",
+    "destination": "DXB",
+    "departureDate": "2026-04-28"
+  },
+  "timestamp": "2026-02-13T23:03:09.946Z",
+  "totalFlights": 0,
+  "scraperResults": [
+    {
+      "scraper": "aeroplan",
+      "status": "success",
+      "flights": [],
+      "duration": 53510,
+      "stats": {
+        "requests": 0,
+        "cacheHits": 0,
+        "bytes": 0
+      }
+    }
+  ]
+}

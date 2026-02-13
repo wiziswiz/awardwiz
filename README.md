@@ -100,20 +100,26 @@ npx tsx cli.ts list
 
 ## 🛠️ Available Scrapers
 
-### ✅ Currently Supported
-- **United Airlines** (`united`) - MileagePlus program
-- **Alaska Airlines** (`alaska`) - Mileage Plan program *(needs API update)*
+### ✅ Working
+- **United Airlines** (`united`) - MileagePlus program *(slow but functional)*
 
-### 🚧 In Development
+### 🔴 Needs Fix (API Changed) 
+- **Alaska Airlines** (`alaska`) - Mileage Plan program *(returns HTML instead of JSON)*
+- **Air Canada Aeroplan** (`aeroplan`) - Aeroplan program *(timeout waiting for API)*
+
+### 🚧 New Scrapers (Research Needed)
+- **Air France** (`airfrance`) - Flying Blue program *(scaffold created)*
+- **British Airways** (`britishairways`) - Executive Club program *(scaffold created)*  
+- **Qatar Airways** (`qatarairways`) - Privilege Club program *(scaffold created)*
+- **Emirates** (`emirates`) - Skywards program *(scaffold created)*
+
+### 🏗️ Existing (Not Yet Enabled)
 - **American Airlines** (`aa`) - AAdvantage program  
 - **Delta Air Lines** (`delta`) - SkyMiles program
 - **JetBlue Airways** (`jetblue`) - TrueBlue program
 - **Southwest Airlines** (`southwest`) - Rapid Rewards program
-- **Air Canada Aeroplan** (`aeroplan`)
-- **Air France** (`air-france`) - Flying Blue program
-- **British Airways** (`british-airways`) - Executive Club program
-- **Qatar Airways** (`qatar`) - Privilege Club program
-- **Emirates** (`emirates`) - Skywards program
+
+> **Note**: Scrapers marked as needing research have skeleton implementations but require API endpoint discovery. See `SCRAPER_RESEARCH_NEEDED.md` for detailed tasks.
 
 ## 💳 Transfer Partner Support
 

@@ -19,8 +19,13 @@ import {
 // Import available scrapers
 import { runScraper as unitedScraper, meta as unitedMeta } from './awardwiz-scrapers/scrapers/united.js'
 import { runScraper as alaskaScraper, meta as alaskaMeta } from './awardwiz-scrapers/scrapers/alaska.js'
+import { runScraper as aeroplanScraper, meta as aeroplanMeta } from './awardwiz-scrapers/scrapers/aeroplan.js'
+import { runScraper as airfranceScraper, meta as airfranceMeta } from './awardwiz-scrapers/scrapers/airfrance.js'
+import { runScraper as britishairwaysScraper, meta as britishairwaysMeta } from './awardwiz-scrapers/scrapers/britishairways.js'
+import { runScraper as qatarairwaysScraper, meta as qatarairwaysMeta } from './awardwiz-scrapers/scrapers/qatarairways.js'
+import { runScraper as emiratesScraper, meta as emiratesMeta } from './awardwiz-scrapers/scrapers/emirates.js'
 // TODO: Add other scrapers as they're implemented
-// import { runScraper as aaOScraper, meta as aaMeta } from './awardwiz-scrapers/scrapers/aa.js'
+// import { runScraper as aaScraper, meta as aaMeta } from './awardwiz-scrapers/scrapers/aa.js'
 // import { runScraper as deltaScraper, meta as deltaMeta } from './awardwiz-scrapers/scrapers/delta.js'
 
 interface ScraperModule {
@@ -55,6 +60,11 @@ interface SearchSummary {
 const AVAILABLE_SCRAPERS: Record<string, ScraperModule> = {
   'united': { runScraper: unitedScraper, meta: unitedMeta },
   'alaska': { runScraper: alaskaScraper, meta: alaskaMeta },
+  'aeroplan': { runScraper: aeroplanScraper, meta: aeroplanMeta },
+  'airfrance': { runScraper: airfranceScraper, meta: airfranceMeta },
+  'britishairways': { runScraper: britishairwaysScraper, meta: britishairwaysMeta },
+  'qatarairways': { runScraper: qatarairwaysScraper, meta: qatarairwaysMeta },
+  'emirates': { runScraper: emiratesScraper, meta: emiratesMeta },
   // TODO: Add more as implemented
 }
 
