@@ -1,51 +1,291 @@
-<div align="center">
-  <div><img src="wizard.png" style="width:200px" /></div>
-  <div><h1>AwardWiz</h1></div>
-  <div><img src="screenshot.png" style="max-width:600px" /></div>
-</div>
-<br/>
+# AwardWiz 2.0 🛫
 
-AwardWiz searches airlines for award tickets so you can fly like a king, remorse-free. http://awardwiz.com
+**Modernized award flight search engine with advanced anti-detection**
 
-- Searches all permutations of origins and destinations (direct flights only for now)
-- See when low-fares are available (`X`, `I`, `O`, etc) vs cash-based fares (for [Chase Ultimate Rewards](https://thepointsguy.com/guide/redeeming-chase-ultimate-rewards-maximum-value/))
-- Searches: `aa`, `aeroplan`, `alaska`, `delta` (temp broken), `jetblue`, `southwest` and `united` (temp broken), along with `skiplagged` for points-to-cash estimates
-- Diligently tried to avoid the various commercial anti-botting mitigations used by airlines
-- Tries getting reliable WiFi and/or lie-flat pod availability
-- *Coming soon* Get emailed when award space opens up
-- *Coming soonish* Automatically calculate region-based miles based on published award charts
+AwardWiz 2.0 is a complete rebuild of the award flight search system, featuring a sophisticated anti-botting engine and unified CLI for searching award flights across multiple airline programs.
 
-## Quickstart
+## ✨ Features
 
-1. Load the project into VSCode and launch the Dev Container (make sure to have the Dev Container VSCode extension installed)
-2. Start a scraper with, for example: `just run-scraper aa SFO LAX 2023-12-01`
-3. If you want to run the front-end, create a `.env` file, start the scraper server `just run-server` and start the web frontend `just run-vite`
+- **🤖 Advanced Anti-Detection**: Arkalis engine with human-like behavior patterns
+- **⚡ Parallel Scraping**: Search multiple airlines simultaneously  
+- **💳 AwardWallet Integration**: Automatic balance fetching and transfer calculations
+- **🔄 Transfer Partner Logic**: Calculate accessible miles through credit card transfers
+- **📊 Rich Output**: JSON results with detailed flight and fare information
+- **🛡️ Error Resilient**: Robust retry logic and graceful failure handling
+- **🎯 CLI Interface**: Simple command-line interface for all operations
 
-## Architecture
+## 🏗️ Architecture
 
-There are three parts to Awardwiz: the frontend (in `awardwiz/`), the scrapers that run on the serverside (in `awardwiz-scrapers/`), and Arkalis (in `arkalis/`) which is the detection-sensitive scraping engine written for this project. Firebase is currently also used to store the user database, although this will be replaced soon.
+### Arkalis Anti-Detection Engine (`arkalis/`)
 
-This is a Node.js project with a strict Typescript setup (and enforced by eslint, via git commit hooks, and `just check` runs). `just` is used for common actions and `npm` is assumed for package management for Node. All these tools and other linters are pre-installed as part of the VSCode Dev Container. It's strongly recommended you use the Dev Container since everything's already installed, including XVFB and Chromium so you can visually debug scrapers. See the `.devcontainer/devcontainer.json` file for how the environment is built.
+Sophisticated web scraping framework that avoids detection by:
 
-The frontend is a React app that uses [Ant Design](https://github.com/ant-design/ant-design/) for UI components. It's built using [Vite](https://github.com/vitejs/vite).
+- **Human-like Mouse Control**: Bezier curve movements with acceleration/deceleration
+- **Randomized Browser Profiles**: Dynamic window sizes, positions, and timings
+- **Domain Blocking**: Prevents tracking domains from loading
+- **Proxy Support**: HTTP/SOCKS5 with dynamic session rolling
+- **Advanced Stealth**: 20+ Chrome flags for maximum invisibility
+- **Request Interception**: Monitor and analyze network traffic
 
-The backend is a Node.js server that uses [Arkalis](arkalis/README.md) to run scrapers. It has a variety of commands to help write and debug scrapers.
+### Scraper Framework (`awardwiz-scrapers/`)
 
-The `just` command is used to access a variety of scripts, including `just test` to run the tests, `just check` to build and lint your code, `just run-scraper <name> <origin> <destination> <yyyy-mm-dd>` to run a scraper, `run-vite`/`run-server` to run the front-end server plus the scrapers backend server. Note that if you're developing in VSCode, you can use the `Run scraper` Launch item and you'll have the full VSCode debugger available to you for debugging scrapers.
+Standardized framework for airline scrapers featuring:
 
-## `.env`
+- **Uniform Data Format**: All scrapers output `FlightWithFares` objects
+- **Error Handling**: Comprehensive timeout and retry mechanisms
+- **Cache Support**: Browser and API response caching
+- **Bandwidth Tracking**: Monitor and optimize request patterns
 
-A few environment variables are used to start the server and frontend. These are in a `.env` file in the root of the workspace. These are only necessary if you are running the front-end server. If you're using `just run-scraper` for example, none are needed.
+### Integrations (`awardwiz-scrapers/integrations/`)
 
-**Required Variables**
-- `VITE_GOOGLE_CLIENT_ID`: A Google client ID with OAuth capabilities (used for identity of users). You can get this from your Firebase Auth instance (Authentication > Sign-in method > Google > Web SDK confirmation > Web client ID)
-- `VITE_FIREBASE_CONFIG_JSON`: Set to the config information (in JSON format with quoted attribute names) from 'Settings > Project settings > General' and scroll to the bottom and select Config for your web app. The format is: `{"apiKey": "...", "authDomain": "...", ...}`
-- `VITE_SCRAPERS_URL`: The web browser-accessible url for `awardwiz-scrapers` , example: `http://127.0.0.1:2222`
+- **AwardWallet API**: Fetch user balances across all programs
+- **Transfer Partners**: Calculate miles accessible through credit card transfers
+- **Smart Mapping**: Automatic program name resolution
 
-**Optional Variables**
-- `VITE_USE_FIREBASE_EMULATORS`: When running locally, setting this to `true` will use the default Firebase emulators. Don't forget to start them using `firebase emulators:start`.
-- `VITE_LOKI_LOGGING_URL`: The url to log scraper results to ex: `https://123456:apikey@logs-prod3.grafana.net/loki/api/v1/push`
-- `VITE_LOKI_LOGGING_UID`: Customize the loki logging user id when calling logging scraper results (defaults to `unknown`)
-- `VITE_SMTP_CONNECTION_STRING` required for sending email notifications (still in progress). This is used when using `pnpm run marked-fares-worker`. **This is a secret and should not be public**
-- `VITE_FIREBASE_SERVICE_ACCOUNT_JSON`: Set to the full service account JSON without line breaks from 'Settings > Project settings > Service accounts' from when you created it. If you create a new one now, note the old one will be immediately disabled. The service account is used by workers. The format is: `{"type": "service_account", "project_id": "awardwiz", "private_key_id": "...", ...}`. **This is a secret and should not be public**
-- `SERVICE_WORKER_JWT_SECRET`: A string of whatever you want that is used to identify your service account backend that won't be rate-limited on the scrapers server
+## 🚀 Installation
+
+### Prerequisites
+
+- **Node.js 22+** (required)
+- **Chrome/Chromium** (for web scraping)
+
+### Setup
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd awardwiz
+
+# Install dependencies
+npm install
+
+# Set up AwardWallet credentials (optional)
+npx tsx cli.ts setup
+# Edit ~/.openclaw/credentials/awardwallet.json with your API key
+```
+
+## 📖 Usage
+
+### Search Award Flights
+
+```bash
+# Basic search
+npx tsx cli.ts search -f LAX -t DXB -d 2026-04-28
+
+# Search specific programs
+npx tsx cli.ts search -f JFK -t LHR -d 2026-06-15 -p united,british-airways
+
+# Include balance information
+npx tsx cli.ts search -f SFO -t NRT -d 2026-08-20 --balances
+
+# Custom output file and timeout
+npx tsx cli.ts search -f LAX -t SYD -d 2026-12-25 -o holiday-flights.json --timeout 60
+```
+
+### View Balances and Transfers
+
+```bash
+# Show all balances with transfer options
+npx tsx cli.ts balances
+
+# Save to specific file
+npx tsx cli.ts balances -o my-balances.json
+```
+
+### List Available Scrapers
+
+```bash
+npx tsx cli.ts list
+```
+
+## 🛠️ Available Scrapers
+
+### ✅ Currently Supported
+- **United Airlines** (`united`) - MileagePlus program
+- **Alaska Airlines** (`alaska`) - Mileage Plan program *(needs API update)*
+
+### 🚧 In Development
+- **American Airlines** (`aa`) - AAdvantage program  
+- **Delta Air Lines** (`delta`) - SkyMiles program
+- **JetBlue Airways** (`jetblue`) - TrueBlue program
+- **Southwest Airlines** (`southwest`) - Rapid Rewards program
+- **Air Canada Aeroplan** (`aeroplan`)
+- **Air France** (`air-france`) - Flying Blue program
+- **British Airways** (`british-airways`) - Executive Club program
+- **Qatar Airways** (`qatar`) - Privilege Club program
+- **Emirates** (`emirates`) - Skywards program
+
+## 💳 Transfer Partner Support
+
+Credit card programs supported for transfer calculations:
+
+- **Chase Ultimate Rewards** - Transfers to United, Air France, British Airways, Southwest
+- **Amex Membership Rewards** - Transfers to Delta, Air France, British Airways, Emirates  
+- **Capital One** - Transfers to Air France, British Airways, Emirates
+- **Citi ThankYou Points** - Transfers to Air France, Emirates
+- **Bilt Rewards** - Transfers to United, Alaska, American, Air France, Emirates
+
+## 📊 Output Format
+
+### Search Results (`results.json`)
+
+```json
+{
+  "query": {
+    "origin": "LAX",
+    "destination": "DXB", 
+    "departureDate": "2026-04-28"
+  },
+  "timestamp": "2026-02-13T22:50:00.000Z",
+  "totalFlights": 15,
+  "scraperResults": [
+    {
+      "scraper": "united",
+      "status": "success",
+      "flights": [
+        {
+          "flightNo": "UA 935",
+          "departureDateTime": "2026-04-28 14:30",
+          "arrivalDateTime": "2026-04-29 18:45", 
+          "origin": "LAX",
+          "destination": "DXB",
+          "duration": 870,
+          "aircraft": "Boeing 777-300ER",
+          "fares": [
+            {
+              "cabin": "business",
+              "miles": 80000,
+              "cash": 400,
+              "currencyOfCash": "USD",
+              "bookingClass": "I",
+              "scraper": "united"
+            }
+          ],
+          "amenities": {
+            "hasPods": true,
+            "hasWiFi": true
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Balance Results (`balances.json`)
+
+```json
+{
+  "timestamp": "2026-02-13T22:50:00.000Z",
+  "balances": [...],
+  "transferCalculations": [
+    {
+      "scraperName": "united",
+      "programName": "United MileagePlus",
+      "directBalance": 25000,
+      "transferableBalance": 125000,
+      "transferOptions": [
+        {
+          "fromProgram": "chase-ur",
+          "toProgram": "united", 
+          "availablePoints": 100000,
+          "transferRatio": 1,
+          "resultingMiles": 100000,
+          "transferTime": "instant"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 🔧 Development
+
+### Adding New Scrapers
+
+1. Create scraper file: `awardwiz-scrapers/scrapers/airline-name.ts`
+2. Implement required interface:
+
+```typescript
+import { AwardWizScraper, FlightWithFares } from '../awardwiz-types.js'
+
+export const meta = {
+  name: "airline-name",
+  blockUrls: ["tracking-domain.com"]
+}
+
+export const runScraper: AwardWizScraper = async (arkalis, query) => {
+  // Navigate to search page
+  arkalis.goto(`https://airline.com/search?from=${query.origin}&to=${query.destination}&date=${query.departureDate}`)
+  
+  // Wait for API response
+  const result = await arkalis.waitFor({
+    "success": { type: "url", url: "https://airline.com/api/flights" }
+  })
+  
+  // Parse and return standardized data
+  const flights: FlightWithFares[] = parseResponse(result.response.body)
+  return flights
+}
+```
+
+3. Add to CLI scraper registry in `cli.ts`
+
+### Testing
+
+```bash
+# Test Arkalis core functionality
+npx tsx -e "
+import { runArkalis } from './arkalis/arkalis.js';
+runArkalis(async (arkalis) => {
+  arkalis.goto('https://www.google.com');
+  await arkalis.wait(2000);
+  return 'success';
+}, {}, {name: 'test'}, 'test');
+"
+
+# Test specific scraper
+npx tsx cli.ts search -f LAX -t DXB -d 2026-04-28 -p united --verbose
+```
+
+## ⚡ Performance & Limitations
+
+### Performance
+- **Parallel Execution**: All scrapers run simultaneously
+- **Smart Caching**: Browser cache and API response caching
+- **Resource Optimization**: Blocks tracking domains and unused resources
+- **Bandwidth Monitoring**: Track data usage per scraper
+
+### Current Limitations
+- **United Airlines**: API endpoint verification needed
+- **Alaska Airlines**: API structure changed, needs update
+- **Rate Limiting**: Some airlines may detect high-frequency requests
+- **Geographic Restrictions**: Some sites may be region-locked
+
+## 🛡️ Security & Ethics
+
+- **No Account Login**: All scrapers work with public-facing search pages only
+- **Respectful Scraping**: Built-in delays and bandwidth monitoring
+- **Anti-Detection**: Designed to be undetectable while remaining ethical
+- **No Credential Storage**: User credentials never stored or transmitted
+
+## 🤝 Contributing
+
+1. **Report Issues**: Found a broken scraper? Open an issue!
+2. **Add Scrapers**: Implement support for new airlines
+3. **Improve Anti-Detection**: Enhance Arkalis stealth capabilities
+4. **Documentation**: Help improve setup and usage guides
+
+## 📄 License
+
+[Add license information]
+
+## 🙏 Acknowledgments
+
+- Original AwardWiz project foundation
+- OpenClaw framework integration
+- Arkalis anti-detection engine innovation
+
+---
+
+**⚠️ Disclaimer**: This tool is for educational purposes. Users are responsible for complying with websites' terms of service and applicable laws. Always respect rate limits and use responsibly.

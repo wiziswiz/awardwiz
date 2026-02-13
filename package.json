@@ -5,7 +5,10 @@
     "build": "tsc",
     "dev": "vite-node --watch awardwiz-scrapers/main-debug.ts",
     "test": "vitest",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "search": "npx tsx cli.ts search",
+    "balances": "npx tsx cli.ts balances",
+    "setup": "npx tsx cli.ts setup"
   },
   "name": "awardwiz",
   "engines": {
@@ -68,6 +71,7 @@
     "bottleneck": "^2.19.5",
     "chrome-launcher": "^1.1.2",
     "chrome-remote-interface": "^0.33.2",
+    "commander": "^14.0.3",
     "cors": "^2.8.5",
     "cross-fetch": "^3.1.8",
     "dayjs": "^1.11.9",
