@@ -14,14 +14,22 @@ export const meta: ScraperMetadata = {
 }
 
 export const runScraper: AwardWizScraper = async (arkalis, query) => {
-  const url = `https://www.alaskaair.com/searchbff/V3/search?origins=${query.origin}&destinations=${query.destination}&dates=${query.departureDate}&numADTs=1&fareView=as_awards&sessionID=&solutionSetIDs=&solutionIDs=`
-  arkalis.goto(url)
-  const waitForResult = await arkalis.waitFor({
-    "success": { type: "url", url: "https://www.alaskaair.com/searchbff/V3/search*", onlyStatusCode: 200, othersThrow: true },
+  // Navigate to Alaska homepage first to get session cookies
+  arkalis.goto("https://www.alaskaair.com/")
+  arkalis.log("waiting for page load")
+  await arkalis.waitFor({
+    "loaded": { type: "url", url: "*alaskaair.com*" },
   })
-  if (waitForResult.name !== "success")
-    throw new Error(waitForResult.name)
-  const fetchFlights = JSON.parse(waitForResult.response!.body) as AlaskaResponse
+  
+  // Call search BFF API with session cookies
+  arkalis.log("calling search API")
+  const searchUrl = `/searchbff/V3/search?origins=${query.origin}&destinations=${query.destination}&dates=${query.departureDate}&numADTs=1&fareView=as_awards&sessionID=&solutionSetIDs=&solutionIDs=`
+  const responseText = await arkalis.evaluate<string>(`
+    fetch("${searchUrl}", { credentials: "include", headers: { "Accept": "application/json" } }).then(r => r.text())
+  `)
+  if (!responseText || responseText.startsWith("<!"))
+    throw new Error(`Alaska returned HTML instead of JSON: ${responseText?.slice(0, 100)}`)
+  const fetchFlights = JSON.parse(responseText) as AlaskaResponse
   if (!fetchFlights.slices)
     return arkalis.warn("No scheduled flights between cities")
 
