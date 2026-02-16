@@ -13,6 +13,26 @@ export const meta: ScraperMetadata = {
   ],
 }
 
+// STATUS: BROKEN as of Feb 2026
+//
+// Root cause: Alaska migrated from their old search stack to a SvelteKit frontend.
+// The old `/searchbff/V3/search` endpoint now returns HTML (the new SvelteKit app shell)
+// instead of JSON, even with Accept: application/json.
+//
+// Research findings (Feb 16, 2026):
+// - alaskaair.com/search/ is now a SvelteKit app (data-theme="alaska", _app/immutable/ bundles)
+// - alaskaair.com/shopping/flights is a Next.js app (data-next-head, separate stack)
+// - apis.alaskaair.com exists but returns 404 for guessed flight search paths
+// - The search flow is fully client-rendered — flight results load via JS after page load
+// - The old searchbff/V3/search path is effectively dead
+// - SvelteKit __data.json endpoint returns layout data (airports, config) but not search results
+//
+// To fix: Need real browser DevTools to:
+//   1. Do a flight search on alaskaair.com/search/
+//   2. Watch Network tab for the actual API calls made during search
+//   3. Could be apis.alaskaair.com/[something] or a BFF call or GraphQL
+//
+// Workaround: Roame covers Alaska award availability across all programs
 export const runScraper: AwardWizScraper = async (arkalis, query) => {
   // Navigate to Alaska homepage first to get session cookies
   arkalis.goto("https://www.alaskaair.com/")
@@ -22,6 +42,7 @@ export const runScraper: AwardWizScraper = async (arkalis, query) => {
   })
   
   // Call search BFF API with session cookies
+  // NOTE: This endpoint is BROKEN — returns HTML instead of JSON since Alaska's SvelteKit migration
   arkalis.log("calling search API")
   const searchUrl = `/searchbff/V3/search?origins=${query.origin}&destinations=${query.destination}&dates=${query.departureDate}&numADTs=1&fareView=as_awards&sessionID=&solutionSetIDs=&solutionIDs=`
   const responseText = await arkalis.evaluate<string>(`

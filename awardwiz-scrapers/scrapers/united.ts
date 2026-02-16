@@ -7,9 +7,25 @@ export const meta: ScraperMetadata = {
   blockUrls: ["liveperson.net", "tags.tiqcdn.com"],
 }
 
-// TODO: United changed their auth flow. The anonymous-token returns a hash but FetchFlights
-// rejects it with 403 "AuthenticationSkipped". Need to reverse-engineer their current
-// X-Authorization-api flow. For now, AA scraper covers many United codeshare routes.
+// STATUS: BROKEN as of Feb 2026
+// 
+// Root cause: United changed their auth flow. The old `/api/auth/anonymous-token` endpoint
+// returns a hash, but `FetchFlights` rejects it with 403 "AuthenticationSkipped".
+//
+// Research findings (Feb 15-16, 2026):
+// - GitHub wiki (OwenKruse/Unofficial-United-Airlines-API-JS) shows the token format is a
+//   long base64 string obtained from cookie-based auth, NOT from anonymous-token endpoint
+// - The token endpoint may now be `/api/svc/token/anonymous` (different from `/api/auth/anonymous-token`)
+// - United blocks all non-browser requests (curl gets HTTP/2 INTERNAL_ERROR)
+// - The X-Authorization-api header format is: `bearer <long_base64_token>`
+// - Requires a real browser session (Arkalis) to obtain a valid token
+//
+// To fix: Need browser DevTools (Network tab) to capture:
+//   1. Which endpoint provides the current valid token
+//   2. What cookies/headers are required
+//   3. Whether the FetchFlights POST body format has changed
+//
+// Workaround: AA scraper covers many United codeshare routes via Roame
 export const runScraper: AwardWizScraper = async (arkalis, query) => {
   const url = `https://www.united.com/en/us/fsr/choose-flights?f=${query.origin}&t=${query.destination}&d=${query.departureDate}&tt=1&at=1&sc=7&px=1&taxng=1&newHP=True&clm=7&st=bestmatches&tqp=A`
   arkalis.goto(url)
